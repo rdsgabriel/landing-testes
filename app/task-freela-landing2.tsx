@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { PlusCircle, CheckCircle2, Clock, DollarSign, UserPlus, ListTodo, FolderPlus, FileText, CalendarClock, ArrowDown} from 'lucide-react'
+import { PlusCircle, CheckCircle2, Clock, DollarSign, UserPlus, ListTodo, FolderPlus, FileText, CalendarClock, ArrowDown, MenuIcon} from 'lucide-react'
 
 export default function TaskFreelaLanding() {
   return (
@@ -19,6 +19,9 @@ export default function TaskFreelaLanding() {
             </div>
             <span className="text-2xl font-bold text-gray-900"><span className='text-purple-600'>Task</span>Freela</span>
           </div>
+          <div className='space-x-4'><span className="text-blackborder-black font-bold text-lg">
+                <MenuIcon/>
+              </span></div>
           <nav className="space-x-4 hidden md:block">
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">Funcionalidades</Button>
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">Preços</Button>
@@ -35,7 +38,7 @@ export default function TaskFreelaLanding() {
           <div className="space-y-6">
             <h1 className="text-4xl font-bold text-gray-900">Simplifique <br />seus trabalhos como freelancer.</h1>
             <p className="text-xl text-gray-600">
-              TaskFreela te ajuda a gerenciar seus projetos e clientes,  <span className='text-purple-600 font-semibold'>rastrear o tempo</span> gasto e a  <span className='text-purple-600 font-semibold'>gerar contratos</span> com nossa  <span className='text-purple-600 font-semibold'>IA</span> - simples assim.
+              TaskFreela te ajuda a gerenciar seus projetos e clientes,  <span className='text-purple-600 font-semibold'>rastrear o tempo</span> gasto e a  <span className='text-purple-600 font-semibold'>gerar contratos</span> com nossa  <span className='text-purple-600 font-semibold'>Inteligência Artificial</span> - simples assim.
             </p>
             <div className="flex space-x-4">
             <Button variant="outline" className="text-purple-600 bg-purple-50 border-purple-600 hover:bg-purple-600 hover:text-white">Começar de graça</Button>
@@ -173,21 +176,21 @@ function InvoiceItem({ client, amount, status }: { client: string; amount: numbe
   
     return (
       <div className="max-w-4xl mx-auto py-12">
-        <h2 className="text-3xl font-bold text-center mb-8">Como o TaskFreela funciona</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Como o <span className='text-purple-600'>Task</span>Freela funciona</h2>
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-purple-200"></div>
           
-          {/* Steps */}
+          <div className="absolute left-3.5 top-0 bottom-0 w-0.5 bg-purple-200"></div>
+          
+          
           {steps.map((step, index) => (
             <div key={index} className="relative mb-8 ml-8">
               {/* Step number circle */}
-              <div className="absolute -left-10 mt-1.5 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute -left-8 mt-1.5 w-7 h-7 bg-purple-100 border-purple-600 border rounded-full flex items-center justify-center text-purple-600 font-bold">
                 {index + 1}
               </div>
               
               <Card>
-                <CardContent className="p-6">
+                <CardContent className="pl-1 p-6">
                   <div className="flex items-center mb-4">
                     <div className="mr-4 text-purple-600">
                       {step.icon}
