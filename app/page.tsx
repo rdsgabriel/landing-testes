@@ -1,8 +1,7 @@
 
-import TaskFreelaLanding from "./task-freela-landing2";
-
+import HomePage from "./home-page";
 export default function Home() {
   return (
-   <TaskFreelaLanding/>
+   <HomePage/>
   );
 }

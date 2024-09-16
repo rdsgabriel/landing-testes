@@ -5,31 +5,44 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FaGoogle } from 'react-icons/fa'
+import Link from 'next/link';
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
       <header className="p-6 px-8 sm:p-6">
-        <h1 className="text-2xl font-bold text-white"><span className='text-purple-600'>Task</span>Freela</h1>
+        <Link href='/'>
+        <h1 className="text-2xl font-bold text-gray-800"><span className='text-purple-600'>Task</span>Freela</h1>
+        </Link>
+        
       </header>
-      
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(128, 90, 213, 0.08)" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
       <main className="flex-grow flex items-center justify-center p-8 sm:p-6">
         <div className="w-full max-w-[400px] space-y-6">
           <div className="space-y-2">
-            <h2 className="text-[32px] font-bold text-gray-200 leading-tight">Seja bem-vindo(a) ao <br className='hidden md:block' /> <span className='text-purple-600'>Task</span><span className='text-white'>Freela.</span></h2>
-            <p className="text-[14px] text-gray-200">Entre na sua conta para continuar</p>
+            <h2 className="text-[32px] font-bold text-gray-500 leading-tight">Seja bem-vindo(a) ao <br className='hidden md:block' /> <span className='text-purple-600'>Task</span><span className='text-gray-800'>Freela.</span></h2>
+            <p className="text-[14px] text-gray-500">Entre na sua conta para continuar</p>
           </div>
           <Tabs defaultValue="email" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-purple-600">
+            <TabsList className="grid w-full grid-cols-2 mb-8 bg-gray-200">
               <TabsTrigger 
                 value="email" 
-                className="font-semibold text-gray-300 data-[state=active]:text-white data-[state=active]:border-b-2 data-[state=active]:border-purple-200"
+                className="font-semibold text-gray-500 data-[state=active]:text-purple-600 data-[state=active]:bg-white data-[state=active]:shadow-sm"
               >
                 Email
               </TabsTrigger>
               <TabsTrigger 
                 value="sso" 
-                className="font-semibold text-gray-300 data-[state=active]:text-white data-[state=active]:border-b-2 data-[state=active]:border-purple-300"
+                className="font-semibold text-gray-500 data-[state=active]:text-purple-600 data-[state=active]:bg-white data-[state=active]:shadow-sm"
               >
                 SSO
               </TabsTrigger>
@@ -37,28 +50,28 @@ export default function LoginPage() {
             <TabsContent value="email">
               <form className="space-y-6">
                 <div>
-                  <Label htmlFor="email" className="block text-sm font-medium text-gray-200">Email</Label>
+                  <Label htmlFor="email" className="block text-sm font-bold text-gray-500">Email</Label>
                   <Input id="email" type="email" placeholder="Entre com seu email" className="mt-1" />
                 </div>
                 <div>
-                  <Label htmlFor="password" className="block text-sm font-medium text-gray-200">Senha</Label>
+                  <Label htmlFor="password" className="block text-sm font-bold text-gray-500">Senha</Label>
                   <Input id="password" type="password" placeholder="Entre com sua senha" className="mt-1" />
                 </div>
                 <div className="flex items-center">
-                  <Checkbox id="remember" className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded data-[state=checked]:bg-purple-600 " />
-                  <Label htmlFor="remember" className="ml-2 block text-sm text-gray-200 font-bold">Lembrar-me</Label>
+                  <Checkbox id="remember" className="h-4 w-4 text-purple-600 focus:ring-blue-500 border-gray-300 rounded data-[state=checked]:bg-purple-600" />
+                  <Label htmlFor="remember" className="ml-2 block text-sm text-gray-600 font-bold">Lembrar-me</Label>
                 </div>
-                <Button className="w-full font-bold bg-purple-600 hover:bg-purple-700 text-white">
+                <Button className="w-full font-medium bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
                   Entrar
                 </Button>
               </form>
             </TabsContent>
             <TabsContent value="sso">
-              <div className="space-y-4">
-                <Label htmlFor="sso-email" className="block text-sm font-medium text-gray-200">Email empresarial</Label>
+              <div className="space-y-3">
+                <Label htmlFor="sso-email" className="block text-sm font-bold text-gray-600">Email empresarial</Label>
                 <Input id="sso-email" type="email" placeholder="nome@empresa.com" />
-                <p className="text-sm text-gray-300">Use um email de uma corporação para colaborar facilmente com seus colegas de trabalho.</p>
-                <Button className="w-full font-bold bg-purple-600 hover:bg-purple-700 text-gray-200">
+                <p className="text-sm text-gray-500">Use um email de uma corporação para colaborar facilmente com seus colegas de trabalho.</p>
+                <Button className="w-full font-medium bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
                   Continuar com SSO
                 </Button>
               </div>
@@ -66,22 +79,22 @@ export default function LoginPage() {
           </Tabs>
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-purple-600 "></div>
+              <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-gradient-to-br from-purple-700 via-purple-800 to-indigo-800 rounded-lg text-gray-300">OU CONTINUE COM</span>
+              <span className="px-2 bg-gray-100 text-gray-500">OU CONTINUE COM</span>
             </div>
           </div>
-          <Button variant="outline" className="w-full border border-gray-300 font-bold text-gray-200 hover:text-white hover:bg-purple-700">
-            <FaGoogle className="mr-2 text-white" />
+          <Button variant="outline" className="w-full border border-gray-300 font-bold text-gray-700 hover:bg-gray-50">
+            <FaGoogle className="mr-2 text-purple-600" />
             Google
           </Button>
           <div className="text-center">
-            <a href="#" className="text-sm text-gray-400  hover:text-purple-500">Esqueceu sua senha?</a>
+            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">Esqueceu sua senha?</a>
           </div>
-          <div className="text-center text-sm text-gray-400">
+          <div className="text-center text-sm text-gray-600">
             Não tem uma conta ainda?{' '}
-            <a href="#" className="font-medium text-purple-500 hover:text-purple-300 text-bold">Registrar</a>
+            <Link href="/register" className=" text-purple-600 hover:text-purple-800 font-bold">Registrar</Link>
           </div>
         </div>
       </main>
