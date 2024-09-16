@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { PlusCircle, CheckCircle2, Clock, DollarSign, UserPlus, ListTodo, FolderPlus, FileText, CalendarClock, ArrowDown, MenuIcon} from 'lucide-react'
+import Link from 'next/link';
 
 export default function TaskFreelaLanding() {
   return (
@@ -19,14 +20,18 @@ export default function TaskFreelaLanding() {
             </div>
             <span className="text-2xl font-bold text-gray-900"><span className='text-purple-600'>Task</span>Freela</span>
           </div>
-          <div className='space-x-4'><span className="text-blackborder-black font-bold text-lg">
+          <div className='space-x-4 md:hidden'><span className="text-blackborder-black font-bold text-lg">
                 <MenuIcon/>
               </span></div>
           <nav className="space-x-4 hidden md:block">
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">Funcionalidades</Button>
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">Preços</Button>
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">Sobre nós</Button>
-            <Button variant="outline" className="text-purple-600  bg-purple-50 border-purple-600 hover:bg-purple-600 hover:text-white">Entrar</Button>
+            <Link href="/login">
+              <Button variant="outline" className="text-purple-600 bg-purple-50 border-purple-600 hover:bg-purple-600 hover:text-white">
+                Entrar
+              </Button>
+            </Link>
           </nav>
         </div>
       </header>
