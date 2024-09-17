@@ -34,19 +34,19 @@ export default function RegisterPage() {
           <form className="space-y-6">
             <div>
               <Label htmlFor="name" className="block text-sm font-bold text-gray-500">Nome completo</Label>
-              <Input id="name" type="text" placeholder="Seu nome completo" className="mt-1" />
+              <Input id="name" type="text" placeholder="Seu nome completo" className="mt-1 text-black" />
             </div>
             <div>
               <Label htmlFor="email" className="block text-sm font-bold text-gray-500">Email</Label>
-              <Input id="email" type="email" placeholder="Seu melhor email" className="mt-1" />
+              <Input id="email" type="email" placeholder="Seu melhor email" className="mt-1 text-black" />
             </div>
             <div>
               <Label htmlFor="password" className="block text-sm font-bold text-gray-500">Senha</Label>
-              <Input id="password" type="password" placeholder="Crie uma senha forte" className="mt-1" />
+              <Input id="password" type="password" placeholder="Crie uma senha forte" className="mt-1 text-black" />
             </div>
             <div>
               <Label htmlFor="passwordConfirm" className="block text-sm font-bold text-gray-500">Confirme a senha</Label>
-              <Input id="passwordConfirm" type="password" placeholder="Repita sua senha" className="mt-1" />
+              <Input id="passwordConfirm" type="password" placeholder="Repita sua senha" className="mt- text-black" />
             </div>
             <div className="flex items-center">
               <Checkbox id="terms" className="h-4 w-4 text-purple-600 focus:ring-blue-500 border-gray-300 rounded data-[state=checked]:bg-purple-600" />

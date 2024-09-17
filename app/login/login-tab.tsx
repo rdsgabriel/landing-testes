@@ -51,11 +51,11 @@ export default function LoginPage() {
               <form className="space-y-6">
                 <div>
                   <Label htmlFor="email" className="block text-sm font-bold text-gray-500">Email</Label>
-                  <Input id="email" type="email" placeholder="Entre com seu email" className="mt-1" />
+                  <Input id="email" type="email" placeholder="Entre com seu email" className="mt-1 text-black" />
                 </div>
                 <div>
                   <Label htmlFor="password" className="block text-sm font-bold text-gray-500">Senha</Label>
-                  <Input id="password" type="password" placeholder="Entre com sua senha" className="mt-1" />
+                  <Input id="password" type="password" placeholder="Entre com sua senha" className="mt-1 text-black"  />
                 </div>
                 <div className="flex items-center">
                   <Checkbox id="remember" className="h-4 w-4 text-purple-600 focus:ring-blue-500 border-gray-300 rounded data-[state=checked]:bg-purple-600" />
