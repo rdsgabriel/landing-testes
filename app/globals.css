@@ -2,11 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Defina as variáveis de tema claro */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; /* Cor de fundo clara */
+  --foreground: #171717; /* Cor do texto escura */
+  --card: #ffffff; /* Cor do cartão clara */
+  --card-foreground: #171717; /* Cor do texto no cartão escura */
+  --popover: #ffffff; /* Cor do popover clara */
+  --popover-foreground: #171717; /* Cor do texto no popover escura */
+  --primary: #171717; /* Cor primária escura */
+  --primary-foreground: #ffffff; /* Cor do texto primário clara */
+  --secondary: #f0f0f0; /* Cor secundária clara */
+  --secondary-foreground: #171717; /* Cor do texto secundário escura */
+  --muted: #f0f0f0; /* Cor atenuada clara */
+  --muted-foreground: #555555; /* Cor do texto atenuado escura */
+  --accent: #f0f0f0; /* Cor de destaque clara */
+  --accent-foreground: #171717; /* Cor do texto de destaque escura */
+  --destructive: #ff6b6b; /* Cor destrutiva */
+  --destructive-foreground: #ffffff; /* Cor do texto destrutivo clara */
+  --border: #e0e0e0; /* Cor da borda clara */
+  --input: #e0e0e0; /* Cor do input clara */
+  --ring: #171717; /* Cor do anel escura */
+  --chart-1: #ff6347; /* Cor do gráfico 1 */
+  --chart-2: #4682b4; /* Cor do gráfico 2 */
+  --chart-3: #4169e1; /* Cor do gráfico 3 */
+  --chart-4: #32cd32; /* Cor do gráfico 4 */
+  --chart-5: #ffa07a; /* Cor do gráfico 5 */
+  --radius: 0.5rem; /* Raio de borda */
 }
-
 
 body {
   color: var(--foreground);
@@ -18,37 +41,6 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  
 }
 
 @layer base {
