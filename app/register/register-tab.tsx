@@ -45,7 +45,7 @@ export default function RegisterPage() {
               <Input id="password" type="password" placeholder="Crie uma senha forte" className="mt-1 text-black" />
             </div>
             <div>
-              <Label htmlFor="passwordConfirm" className="block text-sm font-bold text-gray-500">Confirme a senha</Label>
+              <Label htmlFor="passwordConfirm" className="block text-sm font-bold text-gray-500">Confirme sua senha</Label>
               <Input id="passwordConfirm" type="password" placeholder="Repita sua senha" className="mt- text-black" />
             </div>
             <div className="flex items-center">
