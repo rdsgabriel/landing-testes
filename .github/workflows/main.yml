@@ -22,6 +22,7 @@ jobs:
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.MACHINE_IP}}
+        password: ${{ secrets.SSH_PASSWORD}}
         username: engix-taskfreela
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
