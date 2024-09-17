@@ -61,9 +61,13 @@ export default function LoginPage() {
                   <Checkbox id="remember" className="h-4 w-4 text-purple-600 focus:ring-blue-500 border-gray-300 rounded data-[state=checked]:bg-purple-600" />
                   <Label htmlFor="remember" className="ml-2 block text-sm text-gray-600 font-bold">Lembrar-me</Label>
                 </div>
-                <Button className="w-full font-medium bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
+
+                <Link href={'/workspace'}>
+                <Button className=" mt-4 w-full font-medium bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
                   Entrar
                 </Button>
+                </Link>
+                
               </form>
             </TabsContent>
             <TabsContent value="sso">
