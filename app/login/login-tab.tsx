@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { FormEvent, useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -6,15 +7,74 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FaGoogle } from 'react-icons/fa'
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+interface FormData {
+  username: string;
+  password: string;
+}
+
+export default function LoginPage(): JSX.Element {
+
+  const [formData, setFormData] = useState<FormData>({
+    username: '',
+    password: '',
+  })
+
+  const [error, setError] = useState<string>('');
+  const [success, setSuccess] = useState<string>('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setFormData({...formData, [e.target.id]: value});
+  };
+
+
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+
+    
+  
+    try {
+      const response = await fetch('http://35.199.77.49:9090/api/v1/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
+      });
+  
+      
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Erro ao fazer login'); 
+      }
+  
+      
+      const data = await response.json(); 
+      localStorage.setItem('token', data.jwt); // Armazena o JWT no localStorage
+      setSuccess('Login realizado com sucesso!');
+      console.log(data.jwt)
+      router.push('/workspace')
+       // Inicialize o useRouter
+    } catch (error: any) {
+      setError(error.message || 'Erro ao conectar com o servidor');
+    }
+  };
+  const router = useRouter();
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
       <header className="p-6 px-8 sm:p-6">
         <Link href='/'>
         <h1 className="text-2xl font-bold text-gray-800"><span className='text-purple-600'>Task</span>Freela</h1>
         </Link>
-        
+
       </header>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -48,26 +108,46 @@ export default function LoginPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="email">
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <Label htmlFor="email" className="block text-sm font-bold text-gray-500">Email</Label>
-                  <Input id="email" type="email" placeholder="Entre com seu email" className="mt-1 text-black" />
+                  <Label htmlFor="username" className="block text-sm font-bold text-gray-500">Email</Label>
+                  <Input
+                    id="username"
+                    type="email"
+                    placeholder="Entre com seu email"
+                    className="mt-1 text-black"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required/>
                 </div>
+
                 <div>
                   <Label htmlFor="password" className="block text-sm font-bold text-gray-500">Senha</Label>
-                  <Input id="password" type="password" placeholder="Entre com sua senha" className="mt-1 text-black"  />
+
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Entre com sua senha"
+                    className="mt-1 text-black"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
+
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+                {success && <p className="text-green-500 text-sm">{success}</p>}
+
                 <div className="flex items-center">
                   <Checkbox id="remember" className="h-4 w-4 text-purple-600 focus:ring-blue-500 border-gray-300 rounded data-[state=checked]:bg-purple-600" />
                   <Label htmlFor="remember" className="ml-2 block text-sm text-gray-600 font-bold">Lembrar-me</Label>
                 </div>
 
-                <Link href={'/workspace'}>
-                <Button className=" mt-4 w-full font-medium bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
+                
+                <Button type='submit' className=" mt-4 w-full font-medium bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
                   Entrar
                 </Button>
-                </Link>
-                
+      
               </form>
             </TabsContent>
             <TabsContent value="sso">
@@ -94,7 +174,7 @@ export default function LoginPage() {
             Google
           </Button>
           <div className="text-center">
-            <a href="#" className="text-sm text-gray-600 hover:text-purple-600">Esqueceu sua senha?</a>
+            <Link href="/recovery" className="text-sm text-gray-600 hover:text-purple-600">Esqueceu sua senha?</Link>
           </div>
           <div className="text-center text-sm text-gray-600">
             Não tem uma conta ainda?{' '}

@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckSquare, Users, Briefcase, FileText, LayoutDashboard, Settings, ChevronLeft, Menu, Database, EllipsisVertical } from 'lucide-react'
+import { CheckSquare, Users, Briefcase, FileText, LayoutDashboard, ChevronLeft, Menu, Database, EllipsisVertical } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import SettingsModal from './settings-modal'
+
+// Aqui é a side-bar
 
 export default function Workspace({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
@@ -70,11 +73,11 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
                 <SidebarItem icon={Database} label="Armazenamento" href="/workspace/storage" count={0} />
               </ul>
             </nav>
+
             <div className="p-4 border-t border-gray-200 flex justify-end">
-              <Link href="/workspace/settings" className="p-2 rounded-md hover:bg-gray-100 transition-colors duration-200">
-                <Settings size={18} className="text-gray-500" />
-              </Link>
+              <SettingsModal/>
             </div>
+
           </motion.aside>
         )}
       </AnimatePresence>
