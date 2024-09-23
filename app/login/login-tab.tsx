@@ -1,5 +1,5 @@
 'use client'
-import React, { FormEvent, useState, useEffect } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -63,8 +63,8 @@ export default function LoginPage(): JSX.Element {
       console.log(data.jwt)
       router.push('/workspace')
        // Inicialize o useRouter
-    } catch (error: any) {
-      setError(error.message || 'Erro ao conectar com o servidor');
+    } catch (err) {
+      setError('Erro ao conectar com o servidor');
     }
   };
   const router = useRouter();
