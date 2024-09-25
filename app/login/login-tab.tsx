@@ -44,11 +44,10 @@ export default function LoginPage(): JSX.Element {
   const loginWithProvider = (provider: AuthProvider) => {
     switch (provider) {
       case AuthProvider.google:
-        window.location.href = GOOGLE_AUTH_URL; // Certifique-se que GOOGLE_AUTH_URL está definido corretamente
+        window.location.href = GOOGLE_AUTH_URL;
         break;
       case AuthProvider.github:
-        window.location.href = GITHUB_AUTH_URL; // E aqui também
-        break;
+        window.location.href = GITHUB_AUTH_URL;
       default:
         console.error('Unknown provider');
     }
