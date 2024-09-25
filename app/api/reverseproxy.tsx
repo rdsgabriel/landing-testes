@@ -11,10 +11,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         body: JSON.stringify(req.body), // Passa o corpo da requisição
       });
-      console.log(req.method);
-      const data = await response.json();
+
+      console.log('Request Method:', req.method); // Log do método da requisição
+
+      const text = await response.text(); // Capture a resposta como texto
+      console.log('Response Text:', text); // Log da resposta
+
+      let data;
+      try {
+        data = JSON.parse(text); // Tente analisar o texto como JSON
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+        return res.status(500).json({ message: 'Erro ao processar a resposta da API.' });
+      }
+
       res.status(response.status).json(data);
     } catch (error) {
+      console.error('Connection error:', error);
       res.status(500).json({ message: 'Erro ao conectar com a API.' });
     }
   } else {
