@@ -11,10 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         body: JSON.stringify(req.body), // Passa o corpo da requisição
       });
-
+      console.log(req.method);
       const data = await response.json();
-
-      // Retorne a resposta para o cliente
       res.status(response.status).json(data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao conectar com a API.' });
