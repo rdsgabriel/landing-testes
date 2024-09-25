@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SettingsModal from './settings-modal'
 import jwt from 'jsonwebtoken';
-import { useRouter } from 'next/navigation';
 
 // Aqui é a side-bar
 
@@ -17,14 +16,11 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
   const [name, setName] = useState<string | null>(null);
   const [error, setError] = useState<string>('');
 
-  const router = useRouter()
-
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (!token) {
       setError('Token não encontrado.');
-      router.replace('/login')
       return;
     }
 
@@ -37,7 +33,7 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
       setError('Erro ao decodificar o token.');
       if(error) {console.log(error)}
     }
-  }, [error]); // useEffect sempre presente
+  }, []); // useEffect sempre presente
 
   
 
