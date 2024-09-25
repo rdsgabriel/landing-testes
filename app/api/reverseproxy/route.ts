@@ -2,17 +2,24 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const { port } = Object.fromEntries(req.url.split('?')[1].split('&').map(param => param.split('=')));
+  const { port, action } = Object.fromEntries(req.url.split('?')[1].split('&').map(param => param.split('=')));
 
   let targetUrl = '';
   if (port === '9090') {
-    targetUrl = 'http://35.199.77.49:9090/api/v1/auth/login';
+    if (action === 'login') {
+      targetUrl = 'http://35.199.77.49:9090/api/v1/auth/login';
+    } else if (action === 'register') {
+      targetUrl = 'http://35.199.77.49:9090/api/v1/auth/signup'; // URL para registro
+    }
   } else if (port === '8081') {
-    targetUrl = 'http://35.199.77.49:8081/api/v1/auth/login';
+    if (action === 'login') {
+      targetUrl = 'http://35.199.77.49:8081/api/v1/auth/login';
+    } else if (action === 'register') {
+      targetUrl = 'http://35.199.77.49:8081/api/v1/auth/signup'; // URL para registro
+    }
   } else {
     return NextResponse.json({ message: 'Porta não suportada.' }, { status: 400 });
   }
-
   try {
     const body = await req.json();
     const response = await fetch(targetUrl, {
