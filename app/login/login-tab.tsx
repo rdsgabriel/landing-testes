@@ -72,9 +72,8 @@ export default function LoginPage(): JSX.Element {
         const data = await response.json();
         Cookies.set('token', data.jwt,  {
           expires: 7,
-          secure: true,
+          path: '/',
           sameSite: 'Strict',
-          httpOnly: true,
       });
         setSuccess('Login realizado com sucesso!');
         console.log('data:', data);
