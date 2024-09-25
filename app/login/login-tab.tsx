@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 interface FormData {
   username: string;
   password: string;
+  // Inserior SSO
 }
 
 export default function LoginPage(): JSX.Element {
@@ -29,14 +30,10 @@ export default function LoginPage(): JSX.Element {
     setFormData({...formData, [e.target.id]: value});
   };
 
-
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-
-    
   
     try {
       const response = await fetch('http://35.199.77.49:9090/api/v1/auth/login', {
@@ -50,23 +47,42 @@ export default function LoginPage(): JSX.Element {
         }),
       });
   
-      
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Erro ao fazer login'); 
+      if (response.status === 401) {
+        setError('Usuário ou senha inválidos, tente novamente.');
+        return;
       }
   
-      
-      const data = await response.json(); 
-      localStorage.setItem('token', data.jwt); // Armazena o JWT no localStorage
+      if (response.status === 400) {
+        const data = await response.json();
+        setError(data.message || 'Dados inválidos.');
+        return;
+      }
+  
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Erro ao fazer login');
+      }
+  
+      const data = await response.json();
+      localStorage.setItem('token', data.jwt); // Trocar pra Cookie
       setSuccess('Login realizado com sucesso!');
-      console.log(data.jwt)
-      router.push('/workspace')
-       // Inicialize o useRouter
+      console.log('data:', data)
+      console.log('jwt token:', data.jwt);
+      console.log('refreshToken:', data.refreshToken)
+      router.push('/workspace');
+  
     } catch (err) {
-      setError('Erro ao conectar com o servidor');
+      if (err instanceof Error) {
+        setError(err.message || 'Erro ao conectar com o servidor');
+      } else {
+        setError('Erro desconhecido.');
+      }
     }
   };
+  
+  
+  
+
   const router = useRouter();
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">

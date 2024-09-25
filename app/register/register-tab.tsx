@@ -16,6 +16,7 @@ interface FormData {
 }
 
 export default function RegisterPage(): JSX.Element {
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -23,6 +24,7 @@ export default function RegisterPage(): JSX.Element {
     passwordConfirm: '',
     terms: false
   });
+
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
 
@@ -34,6 +36,8 @@ export default function RegisterPage(): JSX.Element {
   const handleCheckboxChange = (checked: boolean) => {
     setFormData({ ...formData, terms: checked });
   };
+
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,6 +77,9 @@ export default function RegisterPage(): JSX.Element {
       setError('Erro ao conectar com o servidor');
     }
   };
+
+
+
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
