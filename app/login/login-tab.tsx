@@ -10,6 +10,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
+
+const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_GOOGLE_AUTH_URL ?? '';
+const GITHUB_AUTH_URL = process.env.NEXT_PUBLIC_GITHUB_AUTH_URL ?? '';
+
+
 interface FormData {
   username: string;
   password: string;
@@ -29,6 +34,24 @@ export default function LoginPage(): JSX.Element {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setFormData({...formData, [e.target.id]: value});
+  };
+
+  enum AuthProvider {
+    google = 'google',
+    github = 'github',
+  }
+
+  const loginWithProvider = (provider: AuthProvider) => {
+    switch (provider) {
+      case AuthProvider.google:
+        window.location.href = GOOGLE_AUTH_URL; // Certifique-se que GOOGLE_AUTH_URL está definido corretamente
+        break;
+      case AuthProvider.github:
+        window.location.href = GITHUB_AUTH_URL; // E aqui também
+        break;
+      default:
+        console.error('Unknown provider');
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -170,7 +193,7 @@ export default function LoginPage(): JSX.Element {
                 </div>
 
                 
-                <Button type='submit' className=" mt-4 w-full font-medium bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
+                <Button  type='submit' className=" mt-4 w-full font-medium bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-600 border-purple-600 border">
                   Entrar
                 </Button>
       
@@ -195,7 +218,7 @@ export default function LoginPage(): JSX.Element {
               <span className="px-2 bg-gray-100 text-gray-500">OU CONTINUE COM</span>
             </div>
           </div>
-          <Button variant="outline" className="w-full border border-gray-300 font-bold text-gray-700 hover:bg-gray-50">
+          <Button onClick={() => loginWithProvider(AuthProvider.google)} variant="outline" className="w-full border border-gray-300 font-bold text-gray-700 hover:bg-gray-50">
             <FaGoogle className="mr-2 text-purple-600" />
             Google
           </Button>
