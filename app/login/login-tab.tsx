@@ -36,7 +36,7 @@ export default function LoginPage(): JSX.Element {
     setSuccess('');
   
     try {
-      const response = await fetch('/api/reverseproxy', {
+      const response = await fetch('/api/reverseproxy?port=9090', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

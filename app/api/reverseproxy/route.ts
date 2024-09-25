@@ -1,45 +1,33 @@
 // app/api/reverseproxy/route.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const port = req.query.port; // Espera que a porta venha na query
+export async function POST(req: Request) {
+  const { port } = Object.fromEntries(req.url.split('?')[1].split('&').map(param => param.split('=')));
 
   let targetUrl = '';
   if (port === '9090') {
     targetUrl = 'http://35.199.77.49:9090/api/v1/auth/login';
   } else if (port === '8081') {
-    targetUrl = 'http://35.199.77.49:8081/api/v1/auth/login'; // Ajuste a URL conforme necessário
+    targetUrl = 'http://35.199.77.49:8081/api/v1/auth/login'; // Ajuste conforme necessário
   } else {
-    return res.status(400).json({ message: 'Porta não suportada.' });
+    return NextResponse.json({ message: 'Porta não suportada.' }, { status: 400 });
   }
 
-  if (req.method === 'POST') {
-    try {
-      const response = await fetch(targetUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(req.body),
-      });
+  try {
+    const body = await req.json(); // Captura o corpo da requisição
+    const response = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
 
-      const text = await response.text();
+    const data = await response.json();
 
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
-        return res.status(500).json({ message: 'Erro ao processar a resposta da API.' });
-      }
-
-      res.status(response.status).json(data);
-    } catch (error) {
-      console.error('Connection error:', error);
-      res.status(500).json({ message: 'Erro ao conectar com a API.' });
-    }
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    return NextResponse.json(data, { status: response.status });
+  } catch (error) {
+    console.error('Connection error:', error);
+    return NextResponse.json({ message: 'Erro ao conectar com a API.' }, { status: 500 });
   }
 }
