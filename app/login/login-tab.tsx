@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 
-const GOOGLE_AUTH_URL = process.env.GOOGLE_AUTH_URL ?? '';
-const GITHUB_AUTH_URL = process.env.GITHUB_AUTH_URL ?? '';
+const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_GOOGLE_AUTH_URL ?? '';
+const GITHUB_AUTH_URL = process.env.NEXT_PUBLIC_GITHUB_AUTH_URL ?? '';
 
 
 interface FormData {
@@ -47,7 +47,7 @@ export default function LoginPage(): JSX.Element {
         window.location.href = GOOGLE_AUTH_URL;
         break;
       case AuthProvider.github:
-        window.location.href = GITHUB_AUTH_URL;
+        window.location.href = GITHUB_AUTH_URL; 
       default:
         console.error('Unknown provider');
     }
