@@ -7,7 +7,7 @@ const Jwt = () => {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Recupera o token do localStorage
+    const token = localStorage.getItem('token');
 
     if (!token) {
       setError('Token não encontrado.');
@@ -37,7 +37,6 @@ const Jwt = () => {
 
   return (
     <div>
-      <h1>Jwt</h1>
       {decodedToken ? (
         <div>
           <h2>JWT Decodificado:</h2>
