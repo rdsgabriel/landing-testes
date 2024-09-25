@@ -6,12 +6,38 @@ import { CheckSquare, Users, Briefcase, FileText, LayoutDashboard, ChevronLeft, 
 import Link from 'next/link'
 import Image from 'next/image'
 import SettingsModal from './settings-modal'
+import jwt from 'jsonwebtoken';
 
 // Aqui é a side-bar
 
 export default function Workspace({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [name, setName] = useState<string | null>(null);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      setError('Token não encontrado.');
+      return;
+    }
+
+    try {
+      const decoded = jwt.decode(token);
+      if (decoded && typeof decoded === 'object' && 'name' in decoded) {
+        setName(decoded.name); // Acessa 'name' se existir
+      }
+    } catch (err) {
+      setError('Erro ao decodificar o token.');
+    }
+  }, []); // useEffect sempre presente
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
@@ -51,7 +77,7 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
                   className="h-8 w-8 rounded-full"
                 />
        
-                <h2 className="font-bold">Engix</h2>
+                <h2 className="font-bold">{name}</h2>
                 <button className=''>
                   <EllipsisVertical className='ml-20'size={15}/>
                   </button>
