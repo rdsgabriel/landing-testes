@@ -1,14 +1,14 @@
 'use client'
 import { useEffect, useState } from 'react';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import Cookies from 'js-cookie';
 
 const Jwt = () => {
   const [decodedToken, setDecodedToken] = useState<JwtPayload | null>(null);
   const [error, setError] = useState<string>('');
 
-
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token'); // Resgata o token do cookie
 
     if (!token) {
       setError('Token não encontrado.');

@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { FaGoogle } from 'react-icons/fa'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 interface FormData {
   username: string;
@@ -34,56 +35,61 @@ export default function LoginPage(): JSX.Element {
     e.preventDefault();
     setError('');
     setSuccess('');
-  
-    try {
-      const response = await fetch('/api/reverseproxy?port=9090&action=login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          password: formData.password,
-        }),
-      });
 
-      if (response.status === 404) {
-        setError('Nenhum usuário encontrado com esse email.');
-        return;
-      }
-  
-      if (response.status === 401) {
-        setError('Usuário ou senha inválidos, tente novamente.');
-        return;
-      }
-  
-      if (response.status === 400) {
+    try {
+        const response = await fetch('/api/reverseproxy?port=9090&action=login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: formData.username,
+                password: formData.password,
+            }),
+        });
+
+        if (response.status === 404) {
+            setError('Nenhum usuário encontrado com esse email.');
+            return;
+        }
+
+        if (response.status === 401) {
+            setError('Usuário ou senha inválidos, tente novamente.');
+            return;
+        }
+
+        if (response.status === 400) {
+            const data = await response.json();
+            setError(data.message || 'Dados inválidos.');
+            return;
+        }
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.message || 'Erro ao fazer login');
+        }
+
         const data = await response.json();
-        setError(data.message || 'Dados inválidos.');
-        return;
-      }
-  
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Erro ao fazer login');
-      }
-  
-      const data = await response.json();
-      localStorage.setItem('token', data.jwt); // Trocar pra Cookie
-      setSuccess('Login realizado com sucesso!');
-      console.log('data:', data)
-      console.log('jwt token:', data.jwt);
-      console.log('refreshToken:', data.refreshToken)
-      router.push('/workspace');
-  
+        Cookies.set('token', data.jwt,  {
+          expires: 7,
+          secure: true,
+          sameSite: 'Strict',
+          httpOnly: true,
+      });
+        setSuccess('Login realizado com sucesso!');
+        console.log('data:', data);
+        console.log('jwt token:', data.jwt);
+        console.log('refreshToken:', data.refreshToken);
+        router.push('/workspace');
+
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message || 'Erro ao conectar com o servidor');
-      } else {
-        setError('Erro desconhecido.');
-      }
+        if (err instanceof Error) {
+            setError(err.message || 'Erro ao conectar com o servidor');
+        } else {
+            setError('Erro desconhecido.');
+        }
     }
-  };
+};
   
   
   

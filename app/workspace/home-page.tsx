@@ -7,6 +7,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SettingsModal from './settings-modal'
 import jwt from 'jsonwebtoken';
+import Cookies from 'js-cookie';
+
 
 // Aqui é a side-bar
 
@@ -17,7 +19,7 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token'); // Resgata o token usando js-cookie
 
     if (!token) {
       setError('Token não encontrado.');
@@ -26,16 +28,17 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
 
     try {
       const decoded = jwt.decode(token);
-      if (decoded && typeof decoded === 'object' && 'name' in decoded) {
-        setName(decoded.name); // Acessa 'name' se existir
+      if (typeof decoded === 'object' && decoded !== null && 'name' in decoded) {
+        setName(decoded.name);
+      } else {
+        setError('Nome não encontrado no token.');
       }
     } catch (err) {
       setError('Erro ao decodificar o token.');
-      if(error) {console.log(error)}
+      console.error(err);
     }
-  }, []); // useEffect sempre presente
+  }, []);
 
-  
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
@@ -74,7 +77,7 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
                   height={8}
                   className="h-8 w-8 rounded-full"
                 />
-       
+               {error && <div style={{ color: 'red' }}>{error}</div>}
                 <h2 className="font-bold">{name}</h2>
                 <button className=''>
                   <EllipsisVertical className='ml-20'size={15}/>
