@@ -1,16 +1,19 @@
 'use client'
 import { useEffect, useState } from 'react';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { useRouter } from 'next/navigation';
 
 const Jwt = () => {
   const [decodedToken, setDecodedToken] = useState<JwtPayload | null>(null);
   const [error, setError] = useState<string>('');
+  const router = useRouter()
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (!token) {
       setError('Token não encontrado.');
+      router.push('/login')
       return;
     }
 
