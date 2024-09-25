@@ -36,7 +36,7 @@ export default function LoginPage(): JSX.Element {
     setSuccess('');
   
     try {
-      const response = await fetch('http://35.199.77.49:9090/api/v1/auth/login', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
