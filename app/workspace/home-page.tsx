@@ -24,7 +24,7 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
 
     if (!token) {
       setError('Token não encontrado.');
-      router.push('/login')
+      router.replace('/login')
       return;
     }
 

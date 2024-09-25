@@ -13,7 +13,7 @@ const Jwt = () => {
 
     if (!token) {
       setError('Token não encontrado.');
-      router.push('/login')
+      router.replace('/login')
       return;
     }
 
