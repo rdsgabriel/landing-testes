@@ -42,9 +42,10 @@ export default function LoginPage(): JSX.Element {
   }
 
   const loginWithProvider = (provider: AuthProvider) => {
-    console.log(GOOGLE_AUTH_URL)
-    console.log(provider)
+    console.log('tá indo pra essa url:', GOOGLE_AUTH_URL)
+    console.log('git ou google?', provider)
     console.log('777')
+    console.log('gang gang')
     switch (provider) {
       case AuthProvider.google:
         window.location.href = GOOGLE_AUTH_URL;
