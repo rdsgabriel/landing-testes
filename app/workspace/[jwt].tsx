@@ -39,8 +39,7 @@ const Jwt = () => {
     <div>
       {decodedToken ? (
         <div>
-          <h2>JWT Decodificado:</h2>
-          <pre>{JSON.stringify(decodedToken, null, 2)}</pre>
+          <h2>Você já tá logado, <span className='text-purple-700 font-bold'>{decodedToken.name}</span></h2>
         </div>
       ) : (
         <div>Nenhum token disponível.</div>

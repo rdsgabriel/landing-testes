@@ -55,7 +55,7 @@ export default function RegisterPage(): JSX.Element {
     }
 
     try {
-      const response = await fetch('/api/reverseproxy?port=9090', {
+      const response = await fetch('/api/reverseproxy?port=9090&action=signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
