@@ -46,6 +46,11 @@ export default function LoginPage(): JSX.Element {
           password: formData.password,
         }),
       });
+
+      if (response.status === 404) {
+        setError('Nenhum usuário encontrado com esse email.');
+        return;
+      }
   
       if (response.status === 401) {
         setError('Usuário ou senha inválidos, tente novamente.');
