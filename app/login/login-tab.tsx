@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 
-const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_GOOGLE_AUTH_URL ?? '';
-const GITHUB_AUTH_URL = process.env.NEXT_PUBLIC_GITHUB_AUTH_URL ?? '';
+const GOOGLE_AUTH_URL = process.env.GOOGLE_AUTH_URL ?? '';
+const GITHUB_AUTH_URL = process.env.GITHUB_AUTH_URL ?? '';
 
 
 interface FormData {
