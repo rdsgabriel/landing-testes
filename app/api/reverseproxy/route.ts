@@ -8,13 +8,13 @@ export async function POST(req: Request) {
   if (port === '9090') {
     targetUrl = 'http://35.199.77.49:9090/api/v1/auth/login';
   } else if (port === '8081') {
-    targetUrl = 'http://35.199.77.49:8081/api/v1/auth/login'; // Ajuste conforme necessário
+    targetUrl = 'http://35.199.77.49:8081/api/v1/auth/login';
   } else {
     return NextResponse.json({ message: 'Porta não suportada.' }, { status: 400 });
   }
 
   try {
-    const body = await req.json(); // Captura o corpo da requisição
+    const body = await req.json();
     const response = await fetch(targetUrl, {
       method: 'POST',
       headers: {
@@ -23,15 +23,20 @@ export async function POST(req: Request) {
       body: JSON.stringify(body),
     });
 
-    const text = await response.text(); // Capture a resposta como texto
+    const text = await response.text(); // Captura a resposta como texto
     console.log('Response Text:', text); // Log da resposta
+
+    // Verifica se a resposta está OK
+    if (!response.ok) {
+      return NextResponse.json({ message: 'Erro na API externa.', details: text }, { status: response.status });
+    }
 
     let data;
     try {
       data = JSON.parse(text); // Tente analisar o texto como JSON
     } catch (error) {
       console.error('Error parsing JSON:', error);
-      return NextResponse.json({ message: 'Erro ao processar a resposta da API.' }, { status: 500 });
+      return NextResponse.json({ message: 'Erro ao processar a resposta da API.', details: text }, { status: 500 });
     }
 
     return NextResponse.json(data, { status: response.status });
