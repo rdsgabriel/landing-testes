@@ -23,7 +23,16 @@ export async function POST(req: Request) {
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    const text = await response.text(); // Capture a resposta como texto
+    console.log('Response Text:', text); // Log da resposta
+
+    let data;
+    try {
+      data = JSON.parse(text); // Tente analisar o texto como JSON
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+      return NextResponse.json({ message: 'Erro ao processar a resposta da API.' }, { status: 500 });
+    }
 
     return NextResponse.json(data, { status: response.status });
   } catch (error) {
