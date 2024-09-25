@@ -40,7 +40,7 @@ const Jwt = () => {
     <div>
       {decodedToken ? (
         <div>
-          <h2>Você já tá logado, <span className='text-purple-700 font-bold'>{decodedToken.name}</span></h2>
+          <h2>Você já tá logado, <span className='text-purple-700 font-bold'>{decodedToken.name}</span> 😊🚀🎉</h2>
         </div>
       ) : (
         <div>Nenhum token disponível.</div>
