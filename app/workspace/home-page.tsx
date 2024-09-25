@@ -31,13 +31,11 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
       }
     } catch (err) {
       setError('Erro ao decodificar o token.');
+      if(error) {console.log(error)}
     }
-  }, []); // useEffect sempre presente
+  }, [error]); // useEffect sempre presente
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
+  
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
