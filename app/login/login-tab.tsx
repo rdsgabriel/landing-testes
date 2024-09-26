@@ -42,21 +42,23 @@ export default function LoginPage(): JSX.Element {
   }
 
   const loginWithProvider = (provider: AuthProvider) => {
-    console.log('tá indo pra essa url:', GOOGLE_AUTH_URL)
-    console.log('git ou google?', provider)
-    console.log('777')
-    console.log('gang gang gang')
-    switch (provider) {
-      case AuthProvider.google:
-        window.location.href = GOOGLE_AUTH_URL;
-        break;
-      case AuthProvider.github:
-        window.location.href = GITHUB_AUTH_URL;
-      default:
-        console.error('Unknown provider');
+    try {
+      switch (provider) {
+        case AuthProvider.google:
+          window.location.href = GOOGLE_AUTH_URL;
+          break;
+        case AuthProvider.github:
+          window.location.href = GITHUB_AUTH_URL;
+          break;
+        default:
+          throw new Error('Unknown provider');
+      }
+    } catch (error) {
+      console.error('Error during provider login:', error);
+      // Redirect to error page with error message
+      router.push(`/error?message=${encodeURIComponent((error as Error).message)}`);
     }
   };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');

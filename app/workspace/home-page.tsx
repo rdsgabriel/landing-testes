@@ -8,7 +8,7 @@ import Image from 'next/image'
 import SettingsModal from './settings-modal'
 import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation'
 
 // Aqui é a side-bar
 
@@ -17,48 +17,36 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [name, setName] = useState<string | null>(null);
   const [error, setError] = useState<string>('');
-  const searchParams = useSearchParams();
+
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    const token = searchParams.get('token');
+    const tokenFromURL = searchParams.get('token')
 
-    if (token) {
-      // Processar o token aqui
-      console.log('Token recebido:', token);
-      
-      // Exemplo: armazenar o token
-      localStorage.setItem('authToken', token);
-
-      // Exemplo: validar o token com sua API
-      // fetch('/api/validate-token', { method: 'POST', body: JSON.stringify({ token }) })
-
-      // Aqui você pode atualizar o estado da aplicação, redirecionar, etc.
+    if (tokenFromURL) {
+      // Se o token estiver na URL, salve-o no cookie
+      Cookies.set('token', tokenFromURL, { expires: 7, secure: true, sameSite: 'strict' })
     }
-  }, [searchParams]);
 
-  
-
-  useEffect(() => {
-    const token = Cookies.get('token'); // Resgata o token usando js-cookie
+    const token = tokenFromURL || Cookies.get('token')
 
     if (!token) {
-      setError('Token não encontrado.');
-      return;
+      setError('Token não encontrado.')
+      return
     }
 
     try {
-      const decoded = jwt.decode(token);
+      const decoded = jwt.decode(token)
       if (typeof decoded === 'object' && decoded !== null && 'name' in decoded) {
-        setName(decoded.name);
+        setName(decoded.name as string)
       } else {
-        setError('Nome não encontrado no token.');
+        setError('Nome não encontrado no token.')
       }
     } catch (err) {
-      setError('Erro ao decodificar o token.');
-      console.error(err);
+      setError('Erro ao decodificar o token.')
+      console.error(err)
     }
-  }, []);
-
+  }, [searchParams])
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
