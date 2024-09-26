@@ -11,9 +11,8 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 
-const GOOGLE_AUTH_URL = 'https://api-taskfreela.zapto.org/oauth2/authorize/google?redirect_uri=https://www.taskfreela.com/api/oauth2/google/redirect'
+const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_GOOGLE_AUTH_URL ?? '';
 const GITHUB_AUTH_URL = process.env.NEXT_PUBLIC_GITHUB_AUTH_URL ?? '';
-console.log(GOOGLE_AUTH_URL)
 
 
 interface FormData {
