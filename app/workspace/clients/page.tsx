@@ -1,9 +1,14 @@
 import Clients from './home-page'
 import Workspace from '../home-page';
+import { Suspense } from 'react';
 export default function Home() {
   return (
-    <Workspace>
-      <Clients/>
-    </Workspace>
+
+    <Suspense fallback={<div>Carregando...</div>}>
+        <Workspace>
+        <Clients/>
+      </Workspace>
+    </Suspense>
+
   );
 }

@@ -1,9 +1,14 @@
 import TasksPage from './tasks'
 import Workspace from '../home-page';
+import { Suspense } from 'react';
 export default function Home() {
   return (
-    <Workspace>
-      <TasksPage/>
-    </Workspace>
+
+    <Suspense fallback={<div>Carregando...</div>}>
+      <Workspace>
+          <TasksPage/>
+        </Workspace>
+    </Suspense>
+    
   );
 }

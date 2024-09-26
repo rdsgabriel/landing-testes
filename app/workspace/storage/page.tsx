@@ -1,9 +1,12 @@
 import Storage from './home-page';
 import Workspace from '../home-page';
+import { Suspense } from 'react';
 export default function Home() {
   return (
-    <Workspace>
-      <Storage/>
-    </Workspace>
+    <Suspense fallback={<div>Carregando...</div>}>
+      <Workspace>
+        <Storage/>
+      </Workspace>
+    </Suspense>
   );
 }
