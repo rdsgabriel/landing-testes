@@ -1,17 +1,13 @@
-// src/app/api/oauth2/google/redirect.ts
-
-import { NextApiRequest, NextApiResponse } from 'next';
-import Cookies from 'js-cookie';
-
+import { NextResponse } from 'next/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { token } = req.query;
 
   if (typeof token === 'string') {
-    Cookies.set('token', token, { expires: 7, path: '/' });
-    return res.redirect('/workspace');
+    // Redireciona para a página de redirecionamento com o token na query string
+    return NextResponse.redirect('/oauth2/google/redirect?token=${token}');
   }
 
-  res.status(400).json({ message: 'Token não encontrado' });
+  return res.status(400).json({ message: 'Token não encontrado' });
 }
-
