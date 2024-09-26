@@ -8,7 +8,7 @@ import Image from 'next/image'
 import SettingsModal from './settings-modal'
 import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
-
+import { useSearchParams } from 'next/navigation';
 
 // Aqui é a side-bar
 
@@ -17,6 +17,26 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [name, setName] = useState<string | null>(null);
   const [error, setError] = useState<string>('');
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const token = searchParams.get('token');
+
+    if (token) {
+      // Processar o token aqui
+      console.log('Token recebido:', token);
+      
+      // Exemplo: armazenar o token
+      localStorage.setItem('authToken', token);
+
+      // Exemplo: validar o token com sua API
+      // fetch('/api/validate-token', { method: 'POST', body: JSON.stringify({ token }) })
+
+      // Aqui você pode atualizar o estado da aplicação, redirecionar, etc.
+    }
+  }, [searchParams]);
+
+  
 
   useEffect(() => {
     const token = Cookies.get('token'); // Resgata o token usando js-cookie

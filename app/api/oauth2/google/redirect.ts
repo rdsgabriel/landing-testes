@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -6,8 +5,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (typeof token === 'string') {
     // Redireciona para a página de redirecionamento com o token na query string
-    return NextResponse.redirect('/oauth2/google/redirect?token=${token}');
+    res.redirect(302, `/workspace?token=${token}`);
+  } else {
+    res.status(400).json({ message: 'Token não encontrado' });
   }
-
-  return res.status(400).json({ message: 'Token não encontrado' });
 }
