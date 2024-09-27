@@ -6,12 +6,14 @@ import Cookies from 'js-cookie'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Loader2, CheckCircle } from 'lucide-react'
 import { Progress } from "@/components/ui/progress"
+import { Drawer, DrawerContent } from "@/components/ui/drawer"
 
 export default function TokenHandler() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [progress, setProgress] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(true)
   
   useEffect(() => {
     const token = searchParams.get('token')
@@ -50,69 +52,80 @@ export default function TokenHandler() {
           <rect width="100%" height="100%" fill="url(#grid)" />
         </svg>
       </div>
-      <motion.div
-        className="w-full max-w-md relative z-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8">
-          <AnimatePresence mode="wait">
-            <motion.h2
-              key={isComplete ? 'complete' : 'loading'}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.3 }}
-              className="text-2xl text-gray-700 font-semibold text-center mb-6"
-            >
-              {isComplete ? <span>Bem vindo ao <span className='text-purple-600'>Task</span>Freela</span> : 'Preparando seu espaço...'}
-            </motion.h2>
-          </AnimatePresence>
-          <div className="flex items-center justify-center mb-8">
-            <div className="w-16 h-16 relative mr-6">
+      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+        <DrawerContent className="bg-gradient-to-br from-purple-50 to-white p-6 sm:p-8 h-[70%] rounded-t-[30px] overflow-hidden">
+          <motion.div
+            className="w-full max-w-md mx-auto relative z-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8">
               <AnimatePresence mode="wait">
-                {!isComplete ? (
-                  <motion.div
-                    key="loader"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Loader2 className="w-16 h-16 text-purple-600 animate-spin" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="check"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                  >
-                    <CheckCircle className="w-16 h-16 text-purple-500" />
-                  </motion.div>
-                )}
+                <motion.h2
+                  key={isComplete ? 'complete' : 'loading'}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-2xl text-gray-700 font-semibold text-center mb-6"
+                >
+                  {isComplete ? <span>Bem vindo ao <span className='text-purple-600'>Task</span>Freela</span> : 'Preparando seu espaço...'}
+                </motion.h2>
               </AnimatePresence>
+              <div className="flex items-center justify-center mb-8">
+                <div className="w-16 h-16 relative mr-6">
+                  <AnimatePresence mode="wait">
+                    {!isComplete ? (
+                      <motion.div
+                        key="loader"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Loader2 className="w-16 h-16 text-purple-600 animate-spin" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="check"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                      >
+                        <CheckCircle className="w-16 h-16 text-purple-500" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={isComplete ? 'complete' : 'loading'}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-lg text-gray-600 flex-1"
+                  >
+                    {isComplete
+                      ? 'Seu espaço está pronto! Redirecionando...'
+                      : 'Estamos configurando seu perfil e preparando tudo para você começar.'}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+              <Progress 
+                value={progress} 
+                className="h-2" 
+                style={{ 
+                  '--progress-background': '#E9D5FF', 
+                  '--progress-foreground': '#7C3AED' 
+                } as React.CSSProperties}
+              />
             </div>
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={isComplete ? 'complete' : 'loading'}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="text-lg text-gray-600 flex-1"
-              >
-                {isComplete
-                  ? 'Seu espaço está pronto! Redirecionando...'
-                  : 'Estamos configurando seu perfil e preparando tudo para você começar.'}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-          <Progress value={progress} className="h-2" style={{ '--progress-background': '#E9D5FF', '--progress-foreground': '#7C3AED' } as React.CSSProperties}></Progress>
-        </div>
-      </motion.div>
-      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-indigo-200 to-transparent opacity-50" />
+          </motion.div>
+          <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-indigo-200 to-transparent opacity-50" />
+        </DrawerContent>
+      </Drawer>
     </div>
   )
 }
