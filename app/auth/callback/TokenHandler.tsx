@@ -78,7 +78,7 @@ export default function TokenHandler() {
       >
         <div className="bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8">
           <TaskFreelaLogo className="mx-auto mb-6" />
-          <h2 className="text-2xl text-gray-800 font-medium text-center mb-4">
+          <h2 className="text-2xl text-gray-500 font-medium text-center mb-4">
             {isComplete ? 'Bem-vindo ao TaskFreela!' : 'Preparando seu espaço...'}
           </h2>
           <div className="flex items-center justify-center mb-6">
@@ -87,7 +87,7 @@ export default function TokenHandler() {
                 <Loader2 className="w-12 h-12 text-purple-600 animate-spin" />
               ) : (
                 <motion.svg
-                  className="w-12 h-12 text-green-500"
+                  className="w-12 h-12 text-purple-500"
                   viewBox="0 0 24 24"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -100,7 +100,7 @@ export default function TokenHandler() {
                 </motion.svg>
               )}
             </div>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-400">
               {isComplete
                 ? 'Seu espaço está pronto! Redirecionando para o workspace...'
                 : 'Estamos configurando seu perfil e preparando tudo para você começar.'}
