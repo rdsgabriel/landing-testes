@@ -109,11 +109,7 @@ export default function TokenHandler() {
               </motion.p>
             </AnimatePresence>
           </div>
-          <Progress 
-            value={progress} 
-            className="h-2 bg-purple-200"
-            indicatorClassName="bg-purple-600"
-          />
+          <Progress value={progress} className="h-2" style={{ '--progress-background': '#E9D5FF', '--progress-foreground': '#7C3AED' } as React.CSSProperties}></Progress>
         </div>
       </motion.div>
       <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-indigo-200 to-transparent opacity-50" />
