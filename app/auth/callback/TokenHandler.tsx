@@ -39,35 +39,45 @@ export default function TokenHandler() {
   }, [router, searchParams])
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-900 to-purple-900 p-6 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
       <motion.div
-        className="w-full max-w-md"
+        className="w-full max-w-lg relative z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-semibold text-gray-900 mb-2">
-            <span className="text-purple-600">Task</span>
-            <span className="text-black">Freela</span>
+        <div className="text-left mb-8">
+          <h1 className="text-5xl font-bold text-white mb-4">
+            <span className="text-purple-300">Task</span>
+            <span className="text-white">Freela</span>
           </h1>
+          <p className="text-2xl text-purple-200 font-light">
+            {isComplete ? 'Bem-vindo!' : 'Preparando seu espaço...'}
+          </p>
         </div>
         <motion.div
-          className="bg-white p-8 rounded-lg shadow-sm border border-gray-200"
+          className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-8 rounded-lg shadow-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="text-xl font-medium text-gray-700 mb-6 text-center">
-            {isComplete ? 'Bem-vindo!' : 'Autenticando...'}
-          </h2>
-          <div className="flex flex-col items-center justify-center">
-            <div className="w-16 h-16 relative mb-6">
+          <div className="flex items-center mb-6">
+            <div className="w-12 h-12 relative mr-4">
               {!isComplete ? (
-                <Loader2 className="w-16 h-16 text-purple-600 animate-spin" />
+                <Loader2 className="w-12 h-12 text-purple-300 animate-spin" />
               ) : (
                 <motion.svg
-                  className="w-16 h-16 text-purple-500"
+                  className="w-12 h-12 text-purple-400"
                   viewBox="0 0 24 24"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -80,24 +90,28 @@ export default function TokenHandler() {
                 </motion.svg>
               )}
             </div>
-            <p className="text-sm text-gray-600 text-center max-w-xs mb-6">
+            <p className="text-lg text-purple-100">
               {isComplete
                 ? 'Seu espaço está pronto! Redirecionando para o workspace...'
                 : 'Estamos configurando seu perfil e preparando tudo para você começar a usar o TaskFreela'}
             </p>
-            <div className="w-full">
-              <Progress 
-                value={progress} 
-                className="h-1 bg-gray-100" 
-                style={{
-                  '--progress-background': '#f3f4f6',
-                  '--progress-foreground': '#7c3aed'
-                } as React.CSSProperties}
-              />
-            </div>
+          </div>
+          <div className="w-full">
+            <Progress 
+              value={progress} 
+              className="h-2 bg-purple-900 bg-opacity-50" 
+              style={{
+                '--progress-background': 'rgba(139, 92, 246, 0.3)',
+                '--progress-foreground': '#a78bfa'
+              } as React.CSSProperties}
+            />
           </div>
         </motion.div>
       </motion.div>
+      <svg className="absolute bottom-0 right-0 w-64 h-64 text-purple-400 opacity-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" fill="currentColor"/>
+        <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" fill="currentColor"/>
+      </svg>
     </div>
   )
 }
