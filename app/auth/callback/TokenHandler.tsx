@@ -17,11 +17,11 @@ const TaskFreelaLogo = ({ className = "" }: { className?: string }) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M10 10H30V15H20V40H10V10Z M35 40V10H55L60 15H45V22H55L60 27H45V40H35Z M65 40V10H85L90 15H75V22H85L90 27H75V35H90V40H65Z M95 40V10H115L120 15H105V40H95Z"
+      d="M5 35V15H25L30 20H15V27H25L30 32H15V35H5ZM35 35V15H55L60 20H45V27H55L60 32H45V35H35ZM65 35V15H85V20H75V23H85V28H75V30H85V35H65ZM90 35V15H110V20H100V35H90Z"
       fill="#7C3AED"
     />
     <path
-      d="M125 10H145V15H135V40H125V10Z M150 40V10H170V15H160V22H170V27H160V35H170V40H150Z M175 40V10H195V15H185V22H195V27H185V35H195V40H175Z"
+      d="M115 35V15H135V20H125V35H115ZM140 35V15H160V20H150V23H160V28H150V30H160V35H140ZM165 35V15H185V20H175V23H185V28H175V30H185V35H165Z"
       fill="#1F2937"
     />
   </svg>
@@ -59,8 +59,8 @@ export default function TokenHandler() {
   }, [router, searchParams])
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white p-6 relative">
-      <div className="absolute inset-0 opacity-5">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-white to-purple-50 p-6 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -76,48 +76,47 @@ export default function TokenHandler() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="text-center mb-8">
-          <TaskFreelaLogo className="mx-auto mb-4" />
-          <h2 className="text-2xl text-gray-800 font-light">
-            {isComplete ? 'Bem-vindo!' : 'Preparando seu espaço...'}
+        <div className="bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8">
+          <TaskFreelaLogo className="mx-auto mb-6" />
+          <h2 className="text-2xl text-gray-800 font-medium text-center mb-4">
+            {isComplete ? 'Bem-vindo ao TaskFreela!' : 'Preparando seu espaço...'}
           </h2>
-        </div>
-        <div className="flex items-center justify-center mb-6">
-          <div className="w-12 h-12 relative mr-4">
-            {!isComplete ? (
-              <Loader2 className="w-12 h-12 text-purple-600 animate-spin" />
-            ) : (
-              <motion.svg
-                className="w-12 h-12 text-green-500"
-                viewBox="0 0 24 24"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 200, damping: 10 }}
-              >
-                <path
-                  fill="currentColor"
-                  d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
-                />
-              </motion.svg>
-            )}
+          <div className="flex items-center justify-center mb-6">
+            <div className="w-12 h-12 relative mr-4">
+              {!isComplete ? (
+                <Loader2 className="w-12 h-12 text-purple-600 animate-spin" />
+              ) : (
+                <motion.svg
+                  className="w-12 h-12 text-green-500"
+                  viewBox="0 0 24 24"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                >
+                  <path
+                    fill="currentColor"
+                    d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+                  />
+                </motion.svg>
+              )}
+            </div>
+            <p className="text-lg text-gray-700">
+              {isComplete
+                ? 'Seu espaço está pronto! Redirecionando para o workspace...'
+                : 'Estamos configurando seu perfil e preparando tudo para você começar.'}
+            </p>
           </div>
-          <p className="text-lg text-gray-600">
-            {isComplete
-              ? 'Seu espaço está pronto! Redirecionando para o workspace...'
-              : 'Estamos configurando seu perfil e preparando tudo para você começar a usar o TaskFreela'}
-          </p>
-        </div>
-        <div className="w-full">
           <Progress 
             value={progress} 
             className="h-2" 
             style={{
-              '--progress-background': '#F3F4F6',
+              '--progress-background': '#E9D5FF',
               '--progress-foreground': '#7C3AED'
             } as React.CSSProperties}
           />
         </div>
       </motion.div>
+      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-purple-100 to-transparent opacity-50" />
     </div>
   )
 }
