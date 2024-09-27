@@ -1,16 +1,13 @@
-'use client'
-
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-export function TokenHandler() {
+export function TokenHandler({ onTokenReceived }: { onTokenReceived: (token: string | null) => void }) {
   const searchParams = useSearchParams()
-  const [token, setToken] = useState<string | null>(null)
-
+  
   useEffect(() => {
     const tokenFromUrl = searchParams.get('token')
-    setToken(tokenFromUrl)
-  }, [searchParams])
+    onTokenReceived(tokenFromUrl)
+  }, [searchParams, onTokenReceived])
 
-  return token
+  return null  // O componente não precisa renderizar nada
 }

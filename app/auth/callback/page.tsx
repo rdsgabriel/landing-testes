@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useState, Suspense } from 'react'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
@@ -11,37 +10,32 @@ import { TokenHandler } from './TokenHandler'
 export default function AuthCallback() {
   const router = useRouter()
   const [progress, setProgress] = useState(0)
+  const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
-    let token: string | null = null
-    const getToken = async () => {
-      await new Promise(resolve => setTimeout(resolve, 0)) // Micro-task to ensure Suspense has a chance to show
-      token = document.querySelector('#token-container')?.textContent || null
-      if (token) {
-        Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'strict' })
+    if (token) {
+      Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'strict' })
+      
+      const redirectTime = 4000
+      const interval = 50
+      let timer = 0
+
+      const progressInterval = setInterval(() => {
+        timer += interval
+        const easeOutQuad = (t: number) => t * (2 - t)
+        setProgress(easeOutQuad(timer / redirectTime) * 100)
         
-        const redirectTime = 4000
-        const interval = 50
-        let timer = 0
+        if (timer >= redirectTime) {
+          clearInterval(progressInterval)
+          router.push('/workspace')
+        }
+      }, interval)
 
-        const progressInterval = setInterval(() => {
-          timer += interval
-          const easeOutQuad = (t: number) => t * (2 - t)
-          setProgress(easeOutQuad(timer / redirectTime) * 100)
-          
-          if (timer >= redirectTime) {
-            clearInterval(progressInterval)
-            router.push('/workspace')
-          }
-        }, interval)
-
-        return () => clearInterval(progressInterval)
-      } else {
-        router.push('/login?error=Falha na autenticação')
-      }
+      return () => clearInterval(progressInterval)
+    } else if (token === null) {
+      router.push('/login?error=Falha na autenticação')
     }
-    getToken()
-  }, [router])
+  }, [router, token])
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 to-white p-6">
@@ -130,9 +124,7 @@ export default function AuthCallback() {
           </motion.div>
 
           <Suspense fallback={<div>Carregando token...</div>}>
-            <div id="token-container" className="sr-only">
-              <TokenHandler />
-            </div>
+            <TokenHandler onTokenReceived={setToken} />
           </Suspense>
         </motion.div>
       </div>

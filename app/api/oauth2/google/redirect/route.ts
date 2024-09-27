@@ -8,6 +8,5 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/login?error=Token não encontrado', request.url))
   }
 
-  // Redireciona para a página de callback com o token como parâmetro de consulta
   return NextResponse.redirect(new URL(`/auth/callback?token=${encodeURIComponent(token)}`, request.url))
 }
