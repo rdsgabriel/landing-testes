@@ -7,25 +7,7 @@ import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 import { Progress } from "@/components/ui/progress"
 
-const TaskFreelaLogo = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="200"
-    height="50"
-    viewBox="0 0 200 50"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M5 35V15H25L30 20H15V27H25L30 32H15V35H5ZM35 35V15H55L60 20H45V27H55L60 32H45V35H35ZM65 35V15H85V20H75V23H85V28H75V30H85V35H65ZM90 35V15H110V20H100V35H90Z"
-      fill="#7C3AED"
-    />
-    <path
-      d="M115 35V15H135V20H125V35H115ZM140 35V15H160V20H150V23H160V28H150V30H160V35H140ZM165 35V15H185V20H175V23H185V28H175V30H185V35H165Z"
-      fill="#1F2937"
-    />
-  </svg>
-)
+
 
 export default function TokenHandler() {
   const router = useRouter()
@@ -77,7 +59,6 @@ export default function TokenHandler() {
         transition={{ duration: 0.5 }}
       >
         <div className="bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8">
-          <TaskFreelaLogo className="mx-auto mb-6" />
           <h2 className="text-2xl text-gray-500 font-medium text-center mb-4">
             {isComplete ? 'Bem-vindo ao TaskFreela!' : 'Preparando seu espaço...'}
           </h2>
