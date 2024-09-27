@@ -39,7 +39,7 @@ export default function TokenHandler() {
   }, [router, searchParams])
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-white to-gray-100 p-6">
       <motion.div
         className="w-full max-w-md"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -47,7 +47,7 @@ export default function TokenHandler() {
         transition={{ duration: 0.5 }}
       >
         <motion.div
-          className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-8 rounded-2xl shadow-2xl relative overflow-hidden"
+          className="bg-white p-8 rounded-2xl shadow-lg relative overflow-hidden"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -69,8 +69,8 @@ export default function TokenHandler() {
                 />
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(129, 140, 248, 0.1)" />
-                    <stop offset="100%" stopColor="rgba(236, 72, 153, 0.1)" />
+                    <stop offset="0%" stopColor="rgba(124, 58, 237, 0.05)" />
+                    <stop offset="100%" stopColor="rgba(124, 58, 237, 0.1)" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -82,11 +82,11 @@ export default function TokenHandler() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <h1 className="text-4xl font-extrabold text-white mb-2">
+            <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
               {isComplete ? 'Bem-vindo!' : 'Autenticando...'}
             </h1>
-            <p className="text-xl text-indigo-200 mb-8">
-              Preparando seu espaço no <span className="text-pink-400 font-bold">Task</span><span className="font-bold text-indigo-300">Freela</span>
+            <p className="text-xl text-gray-600 mb-8">
+              Preparando seu espaço no <span className="text-purple-600 font-bold">Task</span><span className="font-bold text-black">Freela</span>
             </p>
           </motion.div>
           <motion.div
@@ -104,10 +104,10 @@ export default function TokenHandler() {
                     exit={{ scale: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="absolute inset-0 rounded-full border-4 border-indigo-200 opacity-25"></div>
-                    <div className="absolute inset-0 rounded-full border-4 border-pink-500 border-t-transparent animate-spin"></div>
+                    <div className="absolute inset-0 rounded-full border-4 border-purple-200 opacity-25"></div>
+                    <div className="absolute inset-0 rounded-full border-4 border-purple-600 border-t-transparent animate-spin"></div>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <Loader2 className="w-16 h-16 text-indigo-400 animate-spin" />
+                      <Loader2 className="w-16 h-16 text-purple-600 animate-spin" />
                     </div>
                   </motion.div>
                 ) : (
@@ -118,13 +118,13 @@ export default function TokenHandler() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 10 }}
                   >
-                    <CheckCircle className="w-24 h-24 text-green-400" />
+                    <CheckCircle className="w-24 h-24 text-green-500" />
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
             <motion.p
-              className="text-lg text-indigo-200 text-center max-w-md mb-8"
+              className="text-lg text-gray-600 text-center max-w-md mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
@@ -141,10 +141,10 @@ export default function TokenHandler() {
             >
               <Progress 
                 value={progress} 
-                className="h-2 bg-indigo-900/50" 
+                className="h-2 bg-gray-100" 
                 style={{
-                  '--progress-background': 'rgba(255, 255, 255, 0.1)',
-                  '--progress-foreground': 'linear-gradient(90deg, #818cf8, #ec4899)'
+                  '--progress-background': 'rgba(124, 58, 237, 0.1)',
+                  '--progress-foreground': '#7c3aed'
                 } as React.CSSProperties}
               />
             </motion.div>
