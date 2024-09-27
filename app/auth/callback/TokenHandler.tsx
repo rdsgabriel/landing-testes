@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Cookies from 'js-cookie'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle } from 'lucide-react'
+import { Loader2, CheckCircle } from 'lucide-react'
 import { Progress } from "@/components/ui/progress"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 
@@ -41,9 +41,9 @@ export default function TokenHandler() {
   }, [router, searchParams])
 
   return (
-    <div className="min-h-screen flex items-end justify-center bg-gradient-to-br from-purple-50 to-indigo-100">
+    <div className="min-h-screen flex items-end justify-center ">
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent className="bg-white bg-opacity-95 backdrop-filter backdrop-blur-lg p-6 sm:p-8 rounded-t-[30px] overflow-hidden">
+        <DrawerContent className="bg-gradient-to-br from-white to-purple-200 backdrop-filter backdrop-blur-lg p-6 sm:p-8 rounded-t-[30px] overflow-hidden h-[85vh] max-h-[85vh] border-none shadow-lg">
           <div className="absolute inset-0 opacity-10 pointer-events-none">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -56,7 +56,7 @@ export default function TokenHandler() {
           </div>
           
           <motion.div
-            className="relative z-10 max-w-md mx-auto"
+            className="relative z-10 max-w-md mx-auto h-full flex flex-col justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -68,7 +68,7 @@ export default function TokenHandler() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.3 }}
-                className="text-3xl text-gray-800 font-bold text-center mb-8"
+                className="text-3xl text-gray-800 font-bold text-center mb-12"
               >
                 {isComplete ? (
                   <span>Bem vindo ao <span className='text-purple-600'>Task</span>Freela</span>
@@ -78,8 +78,8 @@ export default function TokenHandler() {
               </motion.h2>
             </AnimatePresence>
 
-            <div className="flex flex-col items-center justify-center mb-8">
-              <div className="w-24 h-24 relative mb-6">
+            <div className="flex flex-col items-center justify-center mb-12">
+              <div className="w-24 h-24 relative mb-8">
                 <AnimatePresence mode="wait">
                   {!isComplete ? (
                     <motion.div
@@ -89,8 +89,7 @@ export default function TokenHandler() {
                       exit={{ opacity: 0, scale: 0.5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <div className="absolute inset-0 rounded-full border-4 border-purple-200 opacity-25"></div>
-                      <div className="absolute inset-0 rounded-full border-4 border-purple-600 border-t-transparent animate-spin"></div>
+                      <Loader2 className="w-24 h-24 text-purple-600 animate-spin" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -124,8 +123,9 @@ export default function TokenHandler() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              className="w-full max-w-sm mx-auto"
             >
-              <Progress value={progress} className="h-2" style={{ '--progress-background': '#E9D5FF', '--progress-foreground': '#7C3AED' } as React.CSSProperties}></Progress>
+              <Progress value={progress} className="h-2" style={{ '--progress-background': '#E9D5FF', '--progress-foreground': '#7C3AED' } as React.CSSProperties} />
               <p className="text-sm text-gray-500 text-center mt-2">
                 {Math.round(progress)}% concluído
               </p>
