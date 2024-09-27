@@ -66,7 +66,7 @@ export default function TokenHandler() {
               transition={{ duration: 0.3 }}
               className="text-2xl text-gray-700 font-semibold text-center mb-6"
             >
-              {isComplete ? 'Bem-vindo ao TaskFreela!' : 'Preparando seu espaço...'}
+              {isComplete ? <span>Bem vindo ao <span className='text-purple-600'>Task</span>Freela</span> : 'Preparando seu espaço...'}
             </motion.h2>
           </AnimatePresence>
           <div className="flex items-center justify-center mb-8">
@@ -89,7 +89,7 @@ export default function TokenHandler() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 10 }}
                   >
-                    <CheckCircle className="w-16 h-16 text-green-500" />
+                    <CheckCircle className="w-16 h-16 text-purple-500" />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -104,7 +104,7 @@ export default function TokenHandler() {
                 className="text-lg text-gray-600 flex-1"
               >
                 {isComplete
-                  ? 'Seu espaço está pronto! Redirecionando para o workspace...'
+                  ? 'Seu espaço está pronto! Redirecionando...'
                   : 'Estamos configurando seu perfil e preparando tudo para você começar.'}
               </motion.p>
             </AnimatePresence>
