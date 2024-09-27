@@ -118,7 +118,7 @@ export default function TokenHandler() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 10 }}
                   >
-                    <CheckCircle className="w-24 h-24 text-green-500" />
+                    <CheckCircle className="w-24 h-24 text-purple-600" />
                   </motion.div>
                 )}
               </AnimatePresence>
