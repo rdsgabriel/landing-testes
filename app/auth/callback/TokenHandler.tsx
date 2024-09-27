@@ -43,7 +43,7 @@ export default function TokenHandler() {
   return (
     <div className="min-h-screen flex items-end justify-center ">
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent className="bg-gradient-to-br from-white to-purple-200 backdrop-filter backdrop-blur-lg p-6 sm:p-8 rounded-t-[30px] overflow-hidden h-[85vh] max-h-[85vh] border-none shadow-lg">
+        <DrawerContent className="bg-gradient-to-br from-white via-purple-50 to-purple-200 backdrop-filter backdrop-blur-lg p-6 sm:p-8 rounded-t-[30px] overflow-hidden h-[70%] border-none shadow-lg">
           <div className="absolute inset-0 opacity-10 pointer-events-none">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
               <defs>
