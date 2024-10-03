@@ -377,6 +377,7 @@ export function DataTable() {
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
+        
         <Input
           placeholder="Filtre suas tasks..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -605,7 +606,7 @@ export default function Component() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Olá!</h2>
           <p className="text-muted-foreground mt-2 text-sm">
-            Aqui está a lista contendo suas tasks, Engix.
+            Aqui está a lista contendo suas <span className="font-bold">Tasks</span>, Engix.
           </p>
         </div>
         <div className="flex items-center space-x-2">

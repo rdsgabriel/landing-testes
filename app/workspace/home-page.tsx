@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckSquare, Users, Briefcase, FileText, LayoutDashboard, ChevronLeft, Menu, Database, EllipsisVertical } from 'lucide-react'
+import { CheckSquare, Users, Briefcase, FileText, LayoutDashboard, ChevronLeft, Menu, Database } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import SettingsModal from './settings-modal'
@@ -87,9 +87,6 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
                 />
                {error && <div style={{ color: 'red' }}>{error}</div>}
                 <h2 className="font-bold">{name}</h2>
-                <button className=''>
-                  <EllipsisVertical className='ml-20'size={15}/>
-                  </button>
               </div>
               <button
                 onClick={isMobileMenuOpen ? toggleMobileMenu : toggleSidebar}
