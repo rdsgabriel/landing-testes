@@ -1,8 +1,7 @@
-"use client"
-
+'use client'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { CheckSquare, Users, Briefcase, FileText, LayoutDashboard, ChevronLeft, ChevronRight, Database } from 'lucide-react'
+import { CheckSquare, Users, Briefcase, FileText, LayoutDashboard, ChevronLeft, ChevronRight, Database, Menu } from 'lucide-react'
 import Link from 'next/link'
 import jwt from 'jsonwebtoken'
 import Cookies from 'js-cookie'
@@ -53,10 +52,10 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
   return (
     <div className="h-screen flex bg-gray-100">
       <TooltipProvider>
-        <motion.aside 
+        <motion.aside
           initial={false}
-          animate={{ width: isSidebarOpen ? '240px' : '64px' }}
-          className="bg-white text-gray-800 h-full flex flex-col shadow-sm border-r border-gray-200 z-20"
+          animate={{ width: isSidebarOpen ? '240px' : '64px', x: (!isSidebarOpen && window.innerWidth < 768) ? '-100%' : '0%' }}
+          className="bg-white text-gray-800 h-full flex flex-col shadow-sm border-r border-gray-200 z-20 fixed md:relative"
         >
           <div className="h-14 flex items-center justify-between px-4 border-b border-gray-200">
             {isSidebarOpen && (
@@ -75,7 +74,8 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
               {isSidebarOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
             </Button>
           </div>
-          <nav className="flex-1 overflow-y-auto py-4">
+
+          <nav className={`flex-1 overflow-y-auto py-4 ${!isSidebarOpen ? 'hidden md:block' : ''}`}>
             <ul className="space-y-1 px-3">
               <SidebarItem icon={LayoutDashboard} label="Dashboard" href="/workspace/dashboard" count={0} isOpen={isSidebarOpen} />
               <SidebarItem icon={CheckSquare} label="Tasks" href="/workspace/tasks" count={5} isOpen={isSidebarOpen} />
@@ -85,14 +85,18 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
               <SidebarItem icon={Database} label="Armazenamento" href="/workspace/storage" count={0} isOpen={isSidebarOpen} />
             </ul>
           </nav>
-          <div className={`h-14 flex items-center ${isSidebarOpen ? 'justify-end px-4' : 'justify-center'} border-t border-gray-200`}>
+
+          <div className={`h-14 flex items-center ${isSidebarOpen ? 'justify-end px-4' : 'justify-center'} border-t border-gray-200 ${!isSidebarOpen ? 'hidden md:flex' : ''}`}>
             <SettingsModal />
           </div>
         </motion.aside>
       </TooltipProvider>
-      
+
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="h-14 bg-white border-b border-gray-200 flex items-center px-4 shadow-sm">
+          <Button variant="ghost" size="icon" onClick={toggleSidebar} className="md:hidden mr-2">
+            <Menu size={18} />
+          </Button>
           <h1 className="text-lg font-semibold text-gray-800">
             <span className='text-purple-700'>Task</span>Freela
           </h1>
@@ -105,27 +109,12 @@ export default function Workspace({ children }: { children: React.ReactNode }) {
   )
 }
 
-function SidebarItem({
-  icon: Icon,
-  label,
-  href,
-  count,
-  isOpen
-}: {
-  icon: React.ElementType;
-  label: string;
-  href: string;
-  count: number;
-  isOpen: boolean;
-}) {
+function SidebarItem({ icon: Icon, label, href, count, isOpen }: { icon: React.ElementType; label: string; href: string; count: number; isOpen: boolean; }) {
   return (
     <li>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Link 
-            href={href} 
-            className={`group flex items-center justify-between text-gray-600 py-2 px-3 rounded-md hover:bg-purple-50 transition-colors duration-200 ${isOpen ? '' : 'justify-center'}`}
-          >
+          <Link href={href} className={`group flex items-center justify-between text-gray-600 py-2 px-3 rounded-md hover:bg-purple-50 transition-colors duration-200 ${isOpen ? '' : 'justify-center'}`}>
             <div className="flex items-center">
               <Icon size={18} className="text-gray-500 group-hover:text-purple-600 transition-colors duration-200" />
               {isOpen && <span className="text-sm ml-3">{label}</span>}
@@ -144,5 +133,5 @@ function SidebarItem({
         )}
       </Tooltip>
     </li>
-  );
+  )
 }
