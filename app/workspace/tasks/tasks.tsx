@@ -16,6 +16,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -40,7 +41,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import Image from "next/image"
 
 interface Task {
   id: string
@@ -610,13 +610,12 @@ export default function Component() {
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <Image
-            src="https://media.licdn.com/dms/image/v2/D4D0BAQGo3WDhlYtsSA/company-logo_100_100/company-logo_100_100/0/1722364220298/engix_tech_logo?e=1734566400&v=beta&t=cDxl-LyHb1homY4dCmlh3HhIGXho85Z8xNd2fA725jA"
-            alt="Avatar"
-            width={8}
-            height={8}
-            className="w-8 h-8 rounded-full"
-          />
+
+        <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback></AvatarFallback>
+          </Avatar>
+
         </div>
       </div>
       <DataTable />

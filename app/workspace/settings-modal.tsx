@@ -14,7 +14,6 @@ export default function SettingsModal() {
   const [activeTab, setActiveTab] = useState('perfil')
   
   const renderTabContent = () => {
-    
     switch (activeTab) {
       case 'perfil':
         return (
@@ -56,7 +55,6 @@ export default function SettingsModal() {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-800">Configurações da conta</h3>
             <p className="text-sm text-gray-600">Gerencie as configurações da sua conta aqui.</p>
-            
           </div>
         )
       case 'aparência':
@@ -64,7 +62,6 @@ export default function SettingsModal() {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-800">Configurações de aparência</h3>
             <p className="text-sm text-gray-600">Personalize a aparência do TaskFreela.</p>
-            
           </div>
         )
       case 'notificações':
@@ -72,7 +69,6 @@ export default function SettingsModal() {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-800">Configurações de notificações</h3>
             <p className="text-sm text-gray-600">Gerencie suas preferências de notificação.</p>
-            
           </div>
         )
       case 'display':
@@ -80,7 +76,6 @@ export default function SettingsModal() {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-800">Configurações de exibição</h3>
             <p className="text-sm text-gray-600">Personalize como o TaskFreela é exibido para você.</p>
-            
           </div>
         )
       default:
@@ -92,30 +87,51 @@ export default function SettingsModal() {
     <Dialog>
       <DialogTrigger asChild>
         <button>
-        <Settings size={16} />
+          <Settings size={16} />
         </button>
       </DialogTrigger>
-      <DialogContent className="max-w-6xl h-[90vh] p-0">
-        <div className="h-full flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 bg-blue-500"> 
-          
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(128, 90, 213, 0.08)" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
+      <DialogContent className="max-w-6xl h-[90vh] p-0 overflow-y-auto">
+        <div className="flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 bg-blue-500 min-h-full"> 
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(128, 90, 213, 0.08)" strokeWidth="1"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+          </div>
 
-          <header className="p-6 px-8 sm:p-6 bg-white border-b border-gray-200">
+          <header className="p-4 bg-white border-b border-gray-200 flex items-center justify-between">
             <Link href='/'>
-              <h1 className="text-2xl font-bold text-gray-800"><span className='text-purple-600'>Task</span>Freela</h1>
+              <h1 className="text-lg font-bold text-gray-800"><span className='text-purple-600'>Task</span>Freela</h1>
             </Link>
           </header>
+          
+          {/* Mobile Menu - Always visible */}
+          <nav className="sm:hidden bg-white border-b border-gray-200 sticky top-0 z-10">
+            <ul className="flex justify-around p-2">
+              {['perfil', 'conta', 'aparência', 'notificações', 'display'].map((tab) => (
+                <li key={tab}>
+                  <button
+                    onClick={() => setActiveTab(tab)}
+                    className={`text-sm px-2 py-1 rounded-md transition-colors duration-200 ${
+                      activeTab === tab
+                        ? 'bg-purple-100 text-purple-700 font-medium'
+                        : 'text-gray-600'
+                    }`}
+                  >
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <div className="flex-grow flex overflow-hidden">
-            <nav className="w-64 bg-white p-6 border-r border-gray-200 overflow-y-auto">
+            {/* Desktop Sidebar - Unchanged */}
+            <nav className="hidden sm:block w-64 bg-white p-6 border-r border-gray-200 overflow-y-auto">
               <h2 className="text-lg font-semibold text-gray-800 mb-4">Configurações</h2>
               <ul className="space-y-2">
                 {['perfil', 'conta', 'aparência', 'notificações', 'display'].map((tab) => (
